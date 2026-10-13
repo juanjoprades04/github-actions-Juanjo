@@ -1,0 +1,21 @@
+
+name: Login seguro
+
+on:
+  workflow_dispatch:
+
+jobs:
+  login:
+    name: Simular login
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mostrar usuario
+        run: echo "Iniciando sesión como estudiante_edem"
+
+      - name: Comprobar contraseña
+        run: |
+          echo "Contraseña recibida: $DB_PASSWORD"
+          echo "Login simulado correctamente"
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
