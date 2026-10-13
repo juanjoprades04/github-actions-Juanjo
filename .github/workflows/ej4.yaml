@@ -1,0 +1,34 @@
+
+name: Ejemplo de artefactos
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generar:
+    name: Generar archivo
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Crear archivo TXT
+        run: echo "Hola desde el Job 1" > mensaje.txt
+
+      - name: Subir artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: mi-mensaje
+          path: mensaje.txt
+
+  leer:
+    name: Descargar y leer archivo
+    runs-on: ubuntu-latest
+    needs: generar
+
+    steps:
+      - name: Descargar artefacto
+        uses: actions/download-artifact@v4
+        with:
+          name: mi-mensaje
+
+      - name: Mostrar contenido
+        run: cat mensaje.txt
